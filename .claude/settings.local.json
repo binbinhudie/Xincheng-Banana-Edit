@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(test:*)",
+      "Bash(pnpm install:*)",
+      "Bash(pnpm dev)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(taskkill:*)",
+      "Bash(if exist .nextdevlock del /f .nextdevlock)",
+      "Bash(del /f /q .nextdevlock)",
+      "Bash(powershell -Command \"Remove-Item -Path ''D:\\\\AI编程出海\\\\image-editor-clone-1\\\\.next\\\\dev\\\\lock'' -Force -ErrorAction SilentlyContinue\")",
+      "Bash(npm run build)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(dir:*)",
+      "Bash(del /f nul)",
+      "Bash(powershell -Command \"Remove-Item -Path ''.\\\\nul'' -Force -ErrorAction SilentlyContinue\")"
+    ]
+  }
+}
