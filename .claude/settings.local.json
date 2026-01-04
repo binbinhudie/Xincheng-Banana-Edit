@@ -15,7 +15,13 @@
       "Bash(git add:*)",
       "Bash(dir:*)",
       "Bash(del /f nul)",
-      "Bash(powershell -Command \"Remove-Item -Path ''.\\\\nul'' -Force -ErrorAction SilentlyContinue\")"
+      "Bash(powershell -Command \"Remove-Item -Path ''.\\\\nul'' -Force -ErrorAction SilentlyContinue\")",
+      "Bash(git commit:*)",
+      "Bash(git config:*)",
+      "Bash(git config user.email \"binbinhudie@users.noreply.github.com\")",
+      "Bash(git remote add:*)",
+      "Bash(git push:*)",
+      "Bash(powershell:*)"
     ]
   }
 }
