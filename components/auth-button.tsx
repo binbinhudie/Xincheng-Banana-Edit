@@ -7,9 +7,10 @@ import type { User } from '@supabase/supabase-js'
 
 export function AuthButton() {
   const [user, setUser] = useState<User | null>(null)
-  const supabase = createClient()
 
   useEffect(() => {
+    const supabase = createClient()
+
     supabase.auth.getUser().then(({ data: { user } }) => setUser(user))
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -20,6 +21,7 @@ export function AuthButton() {
   }, [])
 
   const handleSignIn = async () => {
+    const supabase = createClient()
     await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
@@ -29,6 +31,7 @@ export function AuthButton() {
   }
 
   const handleSignOut = async () => {
+    const supabase = createClient()
     await supabase.auth.signOut()
   }
 
