@@ -23,7 +23,7 @@ const plans = [
   {
     id: "pro",
     name: "Pro",
-    price: "$0.1",
+    price: "$4.5",
     period: "one-time",
     description: "For professionals and creators",
     features: [
