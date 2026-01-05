@@ -48,6 +48,14 @@ export function Editor() {
     setGeneratedImages([])
 
     try {
+      // 检查使用次数
+      const usageCheck = await fetch("/api/usage")
+      const usageData = await usageCheck.json()
+
+      if (usageData.remaining <= 0) {
+        throw new Error("使用次数已用完，请购买更多次数")
+      }
+
       const response = await fetch("/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -71,6 +79,9 @@ export function Editor() {
       }
 
       setGeneratedImages(data.images)
+
+      // 扣减使用次数
+      await fetch("/api/usage", { method: "POST" })
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to generate image")
     } finally {

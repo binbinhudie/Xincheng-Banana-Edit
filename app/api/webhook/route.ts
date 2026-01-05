@@ -35,6 +35,8 @@ export async function POST(request: Request) {
             product_id: event.data.product_id,
             checkout_id: event.data.id,
             status: "active",
+            usage_count: 0,
+            usage_limit: 5,
             metadata: event.data,
           })
         }
