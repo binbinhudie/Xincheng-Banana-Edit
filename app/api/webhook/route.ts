@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { headers } from "next/headers"
+import { createClient } from "@/lib/supabase/server"
 
 export async function POST(request: Request) {
   try {
@@ -20,12 +21,23 @@ export async function POST(request: Request) {
     const event = JSON.parse(body)
     console.log("Webhook event received:", event.type)
 
+    const supabase = await createClient()
+
     // 处理不同的事件类型
     switch (event.type) {
       case "checkout.completed":
         // 支付完成，激活用户订阅
         console.log("Checkout completed:", event.data)
-        // TODO: 更新数据库中的用户订阅状态
+        const userId = event.data.metadata?.userId
+        if (userId) {
+          await supabase.from("subscriptions").insert({
+            user_id: userId,
+            product_id: event.data.product_id,
+            checkout_id: event.data.id,
+            status: "active",
+            metadata: event.data,
+          })
+        }
         break
 
       case "subscription.created":
@@ -41,6 +53,14 @@ export async function POST(request: Request) {
       case "subscription.cancelled":
         // 订阅取消
         console.log("Subscription cancelled:", event.data)
+        const cancelUserId = event.data.metadata?.userId
+        if (cancelUserId) {
+          await supabase
+            .from("subscriptions")
+            .update({ status: "cancelled", updated_at: new Date().toISOString() })
+            .eq("user_id", cancelUserId)
+            .eq("status", "active")
+        }
         break
 
       default:
