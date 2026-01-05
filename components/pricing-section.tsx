@@ -23,7 +23,7 @@ const plans = [
   {
     id: "pro",
     name: "Pro",
-    price: "$19",
+    price: "$0.1",
     period: "per month",
     description: "For professionals and creators",
     features: [
@@ -36,24 +36,6 @@ const plans = [
     ],
     productId: "prod_6rxU77gsSWKfE2ItGZHazK",
     popular: true,
-  },
-  {
-    id: "enterprise",
-    name: "Enterprise",
-    price: "$99",
-    period: "per month",
-    description: "For teams and businesses",
-    features: [
-      "Unlimited images",
-      "Advanced AI editing",
-      "Ultra quality output",
-      "24/7 priority support",
-      "Commercial license",
-      "API access",
-      "Custom integrations",
-      "Dedicated account manager",
-    ],
-    productId: "prod_enterprise_monthly",
   },
 ]
 
