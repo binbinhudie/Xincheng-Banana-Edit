@@ -20,8 +20,25 @@ export async function GET() {
       .limit(1)
       .single()
 
+    // 如果没有订阅，创建免费订阅（2次使用额度）
     if (!subscription) {
-      return NextResponse.json({ remaining: 0, limit: 0 })
+      const { data: freeSubscription } = await supabase
+        .from("subscriptions")
+        .insert({
+          user_id: user.id,
+          product_id: "free",
+          status: "active",
+          usage_count: 0,
+          usage_limit: 2,
+        })
+        .select()
+        .single()
+
+      return NextResponse.json({
+        remaining: 2,
+        limit: 2,
+        used: 0,
+      })
     }
 
     const remaining = subscription.usage_limit - subscription.usage_count
