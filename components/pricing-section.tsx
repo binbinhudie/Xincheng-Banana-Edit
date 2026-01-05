@@ -34,7 +34,7 @@ const plans = [
       "Commercial license",
       "API access",
     ],
-    productId: "prod_7aS6to8F885QlVNW9QhhFn",
+    productId: "prod_6rxU77gsSWKfE2ItGZHazK",
     popular: true,
   },
   {

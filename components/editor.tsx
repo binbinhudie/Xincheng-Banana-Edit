@@ -140,7 +140,7 @@ export function Editor() {
                             />
                             <button
                               onClick={() => removeImage(idx)}
-                              className="absolute -top-2 -right-2 bg-destructive text-destructive-foreground rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                              className="absolute -top-2 -right-2 bg-destructive text-destructive-foreground rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
                               aria-label="Remove image"
                             >
                               <X className="h-3 w-3" />

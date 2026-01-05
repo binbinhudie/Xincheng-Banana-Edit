@@ -36,9 +36,10 @@ export function AuthButton() {
   }
 
   if (user) {
+    const displayName = user.user_metadata?.full_name || user.user_metadata?.name || user.email?.split('@')[0] || '用户'
     return (
       <div className="flex items-center gap-3">
-        <span className="text-sm">{user.email}</span>
+        <span className="text-sm">{displayName}</span>
         <Button onClick={handleSignOut} variant="outline" size="sm">
           登出
         </Button>

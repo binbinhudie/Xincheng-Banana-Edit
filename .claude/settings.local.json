@@ -21,7 +21,8 @@
       "Bash(git config user.email \"binbinhudie@users.noreply.github.com\")",
       "Bash(git remote add:*)",
       "Bash(git push:*)",
-      "Bash(powershell:*)"
+      "Bash(powershell:*)",
+      "mcp__firecrawl__firecrawl_scrape"
     ]
   }
 }
