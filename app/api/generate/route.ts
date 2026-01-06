@@ -1,8 +1,59 @@
 import { NextRequest, NextResponse } from "next/server"
+import { createClient } from "@/lib/supabase/server"
 
 export async function POST(request: NextRequest) {
   try {
     const { prompt, images } = await request.json()
+
+    // 检查用户登录状态和使用次数
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+
+    if (!user) {
+      return NextResponse.json({ error: "Please sign in to use this feature" }, { status: 401 })
+    }
+
+    // 获取用户的活跃订阅
+    const { data: subscription } = await supabase
+      .from("subscriptions")
+      .select("*")
+      .eq("user_id", user.id)
+      .eq("status", "active")
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .single()
+
+    // 如果没有订阅，创建免费订阅
+    if (!subscription) {
+      await supabase
+        .from("subscriptions")
+        .insert({
+          user_id: user.id,
+          product_id: "free",
+          status: "active",
+          usage_count: 0,
+          usage_limit: 2,
+        })
+
+      // 重新获取订阅
+      const { data: newSubscription } = await supabase
+        .from("subscriptions")
+        .select("*")
+        .eq("user_id", user.id)
+        .eq("status", "active")
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .single()
+
+      if (!newSubscription || newSubscription.usage_count >= newSubscription.usage_limit) {
+        return NextResponse.json({ error: "Usage limit reached. Please upgrade to Pro." }, { status: 403 })
+      }
+    } else {
+      // 检查是否还有剩余次数
+      if (subscription.usage_count >= subscription.usage_limit) {
+        return NextResponse.json({ error: "Usage limit reached. Please upgrade to Pro." }, { status: 403 })
+      }
+    }
 
     const apiKey = process.env.GEMINI_API_KEY
     if (!apiKey) {

@@ -132,12 +132,6 @@ export function PricingSection() {
             </Card>
           ))}
         </div>
-
-        <div className="mt-16 text-center">
-          <p className="text-sm text-muted-foreground">
-            All plans include a 14-day money-back guarantee. No questions asked.
-          </p>
-        </div>
       </div>
     </section>
   )

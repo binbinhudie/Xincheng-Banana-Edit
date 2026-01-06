@@ -19,12 +19,12 @@ export function Footer() {
             <h3 className="font-semibold mb-3">Product</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="#features" className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
+                <Link href="/#features" className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
                   Features
                 </Link>
               </li>
               <li>
-                <Link href="#showcase" className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
+                <Link href="/#showcase" className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
                   Showcase
                 </Link>
               </li>
@@ -40,40 +40,20 @@ export function Footer() {
             <h3 className="font-semibold mb-3">Resources</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
-                  Documentation
-                </Link>
-              </li>
-              <li>
-                <Link href="#faq" className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
+                <Link href="/#faq" className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
                   FAQ
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
-                  Support
                 </Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="font-semibold mb-3">Company</h3>
+            <h3 className="font-semibold mb-3">Support</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
-                  Contact
-                </Link>
+                <a href="mailto:support@xinchengai.xyz" className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
+                  support@xinchengai.xyz
+                </a>
               </li>
             </ul>
           </div>
@@ -82,10 +62,10 @@ export function Footer() {
         <div className="border-t pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
           <p>© 2026 Banana Edit. All rights reserved.</p>
           <div className="flex items-center gap-6">
-            <Link href="#" className="hover:text-foreground transition-colors cursor-pointer">
+            <Link href="/privacy" className="hover:text-foreground transition-colors cursor-pointer">
               Privacy Policy
             </Link>
-            <Link href="#" className="hover:text-foreground transition-colors cursor-pointer">
+            <Link href="/terms" className="hover:text-foreground transition-colors cursor-pointer">
               Terms of Service
             </Link>
           </div>

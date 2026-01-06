@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Sparkles } from "lucide-react"
+import Link from "next/link"
 
 export function Hero() {
   return (
@@ -42,13 +43,12 @@ export function Hero() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 gap-2 group">
-              Start Editing
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Button>
-            <Button size="lg" variant="outline">
-              View Examples
-            </Button>
+            <Link href="/#editor">
+              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 gap-2 group">
+                Start Editing
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </Link>
           </div>
 
           <div className="mt-12 flex items-center justify-center gap-8 text-sm text-muted-foreground">

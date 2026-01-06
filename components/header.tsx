@@ -12,16 +12,16 @@ export function Header() {
           <span className="text-xl font-bold">Xincheng Banana Edit</span>
         </Link>
         <nav className="hidden md:flex items-center gap-6">
-          <Link href="#features" className="text-sm font-medium hover:text-accent transition-colors cursor-pointer">
+          <Link href="/#features" className="text-sm font-medium hover:text-accent transition-colors cursor-pointer">
             Features
           </Link>
           <Link href="/pricing" className="text-sm font-medium hover:text-accent transition-colors cursor-pointer">
             Pricing
           </Link>
-          <Link href="#showcase" className="text-sm font-medium hover:text-accent transition-colors cursor-pointer">
+          <Link href="/#showcase" className="text-sm font-medium hover:text-accent transition-colors cursor-pointer">
             Showcase
           </Link>
-          <Link href="#faq" className="text-sm font-medium hover:text-accent transition-colors cursor-pointer">
+          <Link href="/#faq" className="text-sm font-medium hover:text-accent transition-colors cursor-pointer">
             FAQ
           </Link>
         </nav>
