@@ -27,10 +27,18 @@ export async function POST(request: Request) {
     switch (event.type) {
       case "checkout.completed":
         // 支付完成，激活用户订阅
-        console.log("Checkout completed:", event.data)
+        console.log("Checkout completed:", JSON.stringify(event.data, null, 2))
         const userId = event.data.metadata?.userId
-        if (userId) {
-          await supabase.from("subscriptions").insert({
+        console.log("User ID from metadata:", userId)
+
+        if (!userId) {
+          console.error("No userId in metadata:", event.data.metadata)
+          return NextResponse.json({ error: "Missing userId in metadata" }, { status: 400 })
+        }
+
+        const { data: subscription, error: insertError } = await supabase
+          .from("subscriptions")
+          .insert({
             user_id: userId,
             product_id: event.data.product_id,
             checkout_id: event.data.id,
@@ -39,7 +47,15 @@ export async function POST(request: Request) {
             usage_limit: 20,
             metadata: event.data,
           })
+          .select()
+          .single()
+
+        if (insertError) {
+          console.error("Failed to create subscription:", insertError)
+          return NextResponse.json({ error: "Failed to create subscription" }, { status: 500 })
         }
+
+        console.log("Subscription created successfully:", subscription)
         break
 
       case "subscription.created":
