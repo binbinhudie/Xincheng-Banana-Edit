@@ -5,6 +5,7 @@ import { Editor } from "@/components/editor"
 import { Showcase } from "@/components/showcase"
 import { Reviews } from "@/components/reviews"
 import { FAQ } from "@/components/faq"
+import { Disclaimer } from "@/components/disclaimer"
 import { Footer } from "@/components/footer"
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
       <Showcase />
       <Reviews />
       <FAQ />
+      <Disclaimer />
       <Footer />
     </div>
   )

@@ -60,7 +60,7 @@ export default function PrivacyPage() {
             <ul className="list-disc pl-6 space-y-2">
               <li>Google OAuth: For authentication</li>
               <li>Supabase: For data storage and authentication</li>
-              <li>Google Gemini API: For AI image generation</li>
+              <li>Google Gemini API: For AI image generation. We are an independent service and not affiliated with Google.</li>
               <li>Creem: For payment processing</li>
             </ul>
           </section>
