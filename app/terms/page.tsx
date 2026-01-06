@@ -57,7 +57,7 @@ export default function TermsPage() {
             </p>
             <ul className="list-disc pl-6 space-y-2">
               <li>Free users: 2 usage credits per month</li>
-              <li>Pro users: One-time payment of $0.5 for 5 usage credits</li>
+              <li>Pro users: One-time payment of $4.5 for 20 usage credits</li>
               <li>All payments are processed through Creem</li>
               <li>Usage credits take effect immediately after payment</li>
               <li>Usage credits are non-refundable</li>

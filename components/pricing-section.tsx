@@ -27,7 +27,7 @@ const plans = [
     period: "one-time",
     description: "For professionals and creators",
     features: [
-      "5 images total",
+      "20 images total",
       "Advanced AI editing",
       "High quality output",
       "Priority support",
