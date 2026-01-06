@@ -21,6 +21,7 @@ export async function POST() {
       .from("subscriptions")
       .insert({
         user_id: user.id,
+        plan_id: "pro",
         status: "active",
         usage_count: 0,
         usage_limit: 20,

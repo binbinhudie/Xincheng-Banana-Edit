@@ -26,7 +26,7 @@ export async function GET() {
         .from("subscriptions")
         .insert({
           user_id: user.id,
-          product_id: "free",
+          plan_id: "free",
           status: "active",
           usage_count: 0,
           usage_limit: 2,
