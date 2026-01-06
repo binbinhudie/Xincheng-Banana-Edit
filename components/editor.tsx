@@ -228,7 +228,7 @@ export function Editor() {
                     {(error.includes("Usage limit") || error.includes("使用次数已用完")) && (
                       <Link href="/pricing">
                         <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
-                          升级至专业版
+                          Upgrade to Pro
                         </Button>
                       </Link>
                     )}
