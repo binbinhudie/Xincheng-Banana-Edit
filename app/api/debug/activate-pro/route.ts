@@ -16,12 +16,11 @@ export async function POST() {
       .delete()
       .eq("user_id", user.id)
 
-    // 创建 Pro 订阅
+    // 创建 Pro 订阅（只使用基本字段）
     const { data, error } = await supabase
       .from("subscriptions")
       .insert({
         user_id: user.id,
-        product_id: "prod_6rxU77gsSWKfE2ItGZHazK",
         status: "active",
         usage_count: 0,
         usage_limit: 20,

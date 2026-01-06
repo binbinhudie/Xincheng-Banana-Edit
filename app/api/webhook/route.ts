@@ -40,12 +40,9 @@ export async function POST(request: Request) {
           .from("subscriptions")
           .insert({
             user_id: userId,
-            product_id: event.data.product_id,
-            checkout_id: event.data.id,
             status: "active",
             usage_count: 0,
             usage_limit: 20,
-            metadata: event.data,
           })
           .select()
           .single()
