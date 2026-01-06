@@ -8,6 +8,7 @@ import { Card } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
 import { Upload, Sparkles, Loader2, Type, ImageIcon, X } from "lucide-react"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import Link from "next/link"
 
 export function Editor() {
   const [mode, setMode] = useState<"text" | "image">("text")
@@ -223,7 +224,14 @@ export function Editor() {
                 ) : error ? (
                   <div className="text-center">
                     <div className="text-6xl mb-4">⚠️</div>
-                    <p className="text-sm text-destructive">{error}</p>
+                    <p className="text-sm text-destructive mb-4">{error}</p>
+                    {(error.includes("Usage limit") || error.includes("使用次数已用完")) && (
+                      <Link href="/pricing">
+                        <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
+                          升级至专业版
+                        </Button>
+                      </Link>
+                    )}
                   </div>
                 ) : generatedImages.length > 0 ? (
                   <div className="w-full grid gap-4">
