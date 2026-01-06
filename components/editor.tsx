@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useCallback } from "react"
+import { useState, useCallback, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
@@ -17,6 +17,23 @@ export function Editor() {
   const [isProcessing, setIsProcessing] = useState(false)
   const [generatedImages, setGeneratedImages] = useState<string[]>([])
   const [error, setError] = useState("")
+  const [usageInfo, setUsageInfo] = useState<{ remaining: number; limit: number } | null>(null)
+
+  const fetchUsage = useCallback(async () => {
+    try {
+      const response = await fetch('/api/usage')
+      if (response.ok) {
+        const data = await response.json()
+        setUsageInfo({ remaining: data.remaining, limit: data.limit })
+      }
+    } catch (err) {
+      console.error('Failed to fetch usage:', err)
+    }
+  }, [])
+
+  useEffect(() => {
+    fetchUsage()
+  }, [])
 
   const handleImageUpload = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,6 +100,9 @@ export function Editor() {
 
       // 扣减使用次数
       await fetch("/api/usage", { method: "POST" })
+
+      // 刷新使用次数显示
+      await fetchUsage()
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to generate image")
     } finally {
@@ -95,7 +115,14 @@ export function Editor() {
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-5xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Try The AI Editor</h2>
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold">Try The AI Editor</h2>
+              {usageInfo && (
+                <span className="px-3 py-1 text-sm font-medium bg-secondary text-secondary-foreground rounded-full">
+                  {usageInfo.remaining}/{usageInfo.limit} remaining
+                </span>
+              )}
+            </div>
             <p className="text-lg text-muted-foreground">Experience the power of AI-driven image editing</p>
           </div>
 
