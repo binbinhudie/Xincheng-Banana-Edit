@@ -6,8 +6,9 @@ import { useState, useCallback, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
-import { Upload, Sparkles, Loader2, Type, ImageIcon, X } from "lucide-react"
+import { Upload, Sparkles, Loader2, Type, ImageIcon, X, Download } from "lucide-react"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import Link from "next/link"
 
 export function Editor() {
@@ -18,6 +19,8 @@ export function Editor() {
   const [generatedImages, setGeneratedImages] = useState<string[]>([])
   const [error, setError] = useState("")
   const [usageInfo, setUsageInfo] = useState<{ remaining: number; limit: number } | null>(null)
+  const [aspectRatio, setAspectRatio] = useState<string>("16:9")
+  const [imageSize, setImageSize] = useState<string>("2K")
 
   const fetchUsage = useCallback(async () => {
     try {
@@ -57,6 +60,15 @@ export function Editor() {
     setImages((prev) => prev.filter((_, i) => i !== index))
   }
 
+  const downloadImage = (imageUrl: string, index: number) => {
+    const link = document.createElement('a')
+    link.href = imageUrl
+    link.download = `generated-image-${index + 1}.png`
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+
   const handleGenerate = async () => {
     if (mode === "text" && !prompt) return
     if (mode === "image" && (images.length === 0 || !prompt)) return
@@ -80,6 +92,8 @@ export function Editor() {
         body: JSON.stringify({
           prompt,
           images: mode === "image" ? images : [],
+          aspectRatio,
+          imageSize,
         }),
       })
 
@@ -197,6 +211,41 @@ export function Editor() {
                   </div>
                 )}
 
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">Aspect Ratio</label>
+                    <Select value={aspectRatio} onValueChange={setAspectRatio}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="21:9">21:9</SelectItem>
+                        <SelectItem value="16:9">16:9</SelectItem>
+                        <SelectItem value="4:3">4:3</SelectItem>
+                        <SelectItem value="3:2">3:2</SelectItem>
+                        <SelectItem value="1:1">1:1</SelectItem>
+                        <SelectItem value="9:16">9:16</SelectItem>
+                        <SelectItem value="3:4">3:4</SelectItem>
+                        <SelectItem value="2:3">2:3</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">Image Quality</label>
+                    <Select value={imageSize} onValueChange={setImageSize}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="1K">1K</SelectItem>
+                        <SelectItem value="2K">2K</SelectItem>
+                        <SelectItem value="4K">4K</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
                 <div>
                   <label className="text-sm font-medium mb-2 block">Prompt</label>
                   <Textarea
@@ -263,12 +312,21 @@ export function Editor() {
                 ) : generatedImages.length > 0 ? (
                   <div className="w-full grid gap-4">
                     {generatedImages.map((img, idx) => (
-                      <img
-                        key={idx}
-                        src={img || "/placeholder.svg"}
-                        alt={`Generated ${idx + 1}`}
-                        className="w-full rounded-lg"
-                      />
+                      <div key={idx} className="space-y-2">
+                        <img
+                          src={img || "/placeholder.svg"}
+                          alt={`Generated ${idx + 1}`}
+                          className="w-full rounded-lg"
+                        />
+                        <Button
+                          onClick={() => downloadImage(img, idx)}
+                          className="w-full gap-2"
+                          variant="outline"
+                        >
+                          <Download className="h-4 w-4" />
+                          Download Image
+                        </Button>
+                      </div>
                     ))}
                   </div>
                 ) : (mode === "image" ? images.length > 0 : true) && prompt ? (

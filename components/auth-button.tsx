@@ -63,7 +63,7 @@ export function AuthButton() {
           )}
         </div>
         <Button onClick={handleSignOut} variant="outline" size="sm">
-          登出
+          Sign Out
         </Button>
       </div>
     )

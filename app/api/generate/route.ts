@@ -3,7 +3,7 @@ import { createClient } from "@/lib/supabase/server"
 
 export async function POST(request: NextRequest) {
   try {
-    const { prompt, images } = await request.json()
+    const { prompt, images, aspectRatio = "16:9", imageSize = "2K" } = await request.json()
 
     // 检查用户登录状态和使用次数
     const supabase = await createClient()
@@ -85,8 +85,8 @@ export async function POST(request: NextRequest) {
           generationConfig: {
             responseModalities: ["TEXT", "IMAGE"],
             imageConfig: {
-              aspectRatio: "3:4",
-              imageSize: "2K",
+              aspectRatio,
+              imageSize,
             },
           },
         }),
